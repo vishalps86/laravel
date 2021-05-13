@@ -8,6 +8,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
+
 
 class EventsController extends BaseController
 {
@@ -97,6 +99,21 @@ class EventsController extends BaseController
      */
 
     public function getEventsWithWorkshops() {
+        $events = DB::table('events')
+            ->select('id')
+            ->get();
+        $result = DB::select($events);
+
+        foreach($result as $r){
+            $event_id = $r->id;
+            $workshops = DB::table('workshops')->where('event_id', $event_id)->get();
+            $w_result = DB::select($workshops);
+            foreach($w_result as $wr){
+                //get json data
+            }
+        }       
+       
+       
         throw new \Exception('implement in coding task 1');
     }
 
